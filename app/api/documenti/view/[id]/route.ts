@@ -65,7 +65,7 @@ export async function GET(
     }
 
     // Restituisce il file con Content-Disposition: inline per la visualizzazione nel browser
-    return new NextResponse(fileBuffer, {
+    return new NextResponse(fileBuffer as any, {
       headers: {
         'Content-Type': documento.tipo,
         'Content-Disposition': `inline; filename="${documento.nome}"`,

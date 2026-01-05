@@ -351,7 +351,7 @@ export default function ClienteAnagrafica({ clienteId }: ClienteAnagraficaProps)
       </div>
 
       {/* Scheda 1 - Dati Anagrafici */}
-      {activeTab === 'anagrafica' && (
+      {activeTab === 'anagrafica' && cliente && (
         <div className="space-y-6">
         <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">Dati Anagrafici</h2>
@@ -359,23 +359,23 @@ export default function ClienteAnagrafica({ clienteId }: ClienteAnagraficaProps)
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Cognome</label>
-                <p className="text-gray-900">{cliente.cognome}</p>
+                <p className="text-gray-900">{cliente?.cognome || ''}</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                <p className="text-gray-900">{cliente.nome}</p>
+                <p className="text-gray-900">{cliente?.nome || ''}</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Codice Fiscale</label>
-                <p className="text-gray-900 font-mono">{cliente.codiceFiscale}</p>
+                <p className="text-gray-900 font-mono">{cliente?.codiceFiscale || ''}</p>
         </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Cellulare</label>
                 <p className="text-gray-900">
-                  {cliente.cellulare ? (
+                  {cliente?.cellulare ? (
                     <a href={`tel:${cliente.cellulare}`} className="text-blue-600 hover:text-blue-800">
                       {cliente.cellulare}
                     </a>
@@ -388,7 +388,7 @@ export default function ClienteAnagrafica({ clienteId }: ClienteAnagraficaProps)
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
                 <p className="text-gray-900">
-                {cliente.email ? (
+                {cliente?.email ? (
                   <a href={`mailto:${cliente.email}`} className="text-blue-600 hover:text-blue-800">
                     {cliente.email}
                   </a>
@@ -401,14 +401,14 @@ export default function ClienteAnagrafica({ clienteId }: ClienteAnagraficaProps)
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Indirizzo di Residenza</label>
                 <p className="text-gray-900">
-                  {cliente.indirizzoResidenza || <span className="text-gray-400 italic">Non specificato</span>}
+                  {cliente?.indirizzoResidenza || <span className="text-gray-400 italic">Non specificato</span>}
               </p>
             </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">IBAN</label>
                 <p className="text-gray-900 font-mono">
-                  {cliente.iban || <span className="text-gray-400 italic">Non specificato</span>}
+                  {cliente?.iban || <span className="text-gray-400 italic">Non specificato</span>}
                 </p>
               </div>
             </div>
@@ -517,11 +517,11 @@ export default function ClienteAnagrafica({ clienteId }: ClienteAnagraficaProps)
             <p className="text-sm text-gray-600 mb-4">Puoi allegare più file (PDF, immagini)</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <UploadDocumento 
-                clienteId={cliente.id} 
+                clienteId={cliente?.id || ''} 
                 categoria="Documento Identità"
                 onUploadSuccess={loadData}
               />
-              <ListaDocumenti clienteId={cliente.id} categoria="Documento Identità" />
+              <ListaDocumenti clienteId={cliente?.id || ''} categoria="Documento Identità" />
             </div>
           </div>
         </div>
@@ -890,7 +890,7 @@ export default function ClienteAnagrafica({ clienteId }: ClienteAnagraficaProps)
           Torna alla lista
         </Link>
         <Link
-          href={`/clienti/${cliente.id}/edit`}
+          href={cliente ? `/clienti/${cliente.id}/edit` : '/clienti'}
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
           Modifica Cliente

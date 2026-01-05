@@ -3,8 +3,10 @@ import { existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
 import { runMigrations } from './migrations'
 
-// Assicura che la directory data esista
-const dataDir = join(process.cwd(), 'data')
+// Su Vercel usa /tmp, altrimenti usa la directory data locale
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV
+const dataDir = isVercel ? '/tmp' : join(process.cwd(), 'data')
+
 if (!existsSync(dataDir)) {
   mkdirSync(dataDir, { recursive: true })
 }

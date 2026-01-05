@@ -64,7 +64,7 @@ export async function GET(
       fileBuffer = await readFile(filePath)
     }
 
-    return new NextResponse(fileBuffer, {
+    return new NextResponse(fileBuffer as any, {
       headers: {
         'Content-Type': documento.tipo,
         'Content-Disposition': `attachment; filename="${documento.nome}"`,

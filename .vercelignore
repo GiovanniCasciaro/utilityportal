@@ -1,0 +1,15 @@
+# Ignora file non necessari per il deploy
+data/
+uploads/
+*.db
+*.log
+.DS_Store
+node_modules/
+.git/
+.env.local
+.env*.local
+backups/
+scripts/
+*.md
+!README.md
+

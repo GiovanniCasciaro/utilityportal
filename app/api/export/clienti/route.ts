@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const clienti = db.prepare('SELECT * FROM clienti ORDER BY createdAt DESC').all()
 
     if (format === 'xlsx') {
-      const worksheet = XLSX.utils.json_to_sheet(clienti.map(c => ({
+      const worksheet = XLSX.utils.json_to_sheet(clienti.map((c: any) => ({
         'ID': c.id,
         'Nome': c.nome,
         'Cognome': c.cognome,
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
       XLSX.utils.book_append_sheet(workbook, worksheet, 'Clienti')
       const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' })
 
-      return new NextResponse(buffer, {
+      return new NextResponse(buffer as any, {
         headers: {
           'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           'Content-Disposition': `attachment; filename="clienti_${new Date().toISOString().split('T')[0]}.xlsx"`,
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     } else {
       // CSV
       const headers = ['ID', 'Nome', 'Cognome', 'Email', 'Telefono', 'Azienda', 'Stato', 'Data Registrazione']
-      const rows = clienti.map(c => [
+      const rows = clienti.map((c: any) => [
         c.id,
         c.nome,
         c.cognome,

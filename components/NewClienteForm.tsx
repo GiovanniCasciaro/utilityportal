@@ -17,6 +17,22 @@ interface Fornitura {
   consumoAnnuale: string
   tipologiaContratto: string
   stato: string
+  prestazione?: string
+  fornitore?: string
+  offerta?: string
+  prezzo?: string
+  ccv?: string
+  scadenza?: string
+  compenso?: string
+  commissione?: string
+  operatore?: string
+  nrPratica?: string
+  linkPortale?: string
+  checkPagamento?: boolean
+  checkStorno?: boolean
+  esitoContratto?: string
+  tipologia?: string
+  note?: string
 }
 
 export default function NewClienteForm() {
@@ -219,14 +235,53 @@ export default function NewClienteForm() {
       indirizzoFornitura: '',
       consumoAnnuale: '',
       tipologiaContratto: 'Residenziale',
-      stato: 'Attivo'
+      stato: 'Attivo',
+      prestazione: '',
+      fornitore: '',
+      offerta: '',
+      prezzo: '',
+      ccv: '',
+      scadenza: '',
+      compenso: '',
+      commissione: '',
+      operatore: '',
+      nrPratica: '',
+      linkPortale: '',
+      checkPagamento: false,
+      checkStorno: false,
+      esitoContratto: '',
+      tipologia: '',
+      note: ''
     })
     setShowAddFornitura(false)
   }
 
   const handleEditFornitura = (index: number) => {
     setEditingFornituraIndex(index)
-    setNewFornitura({ ...forniture[index] })
+    const fornitura = forniture[index]
+    setNewFornitura({
+      podPdr: fornitura.podPdr || '',
+      indirizzoFornitura: fornitura.indirizzoFornitura || '',
+      consumoAnnuale: fornitura.consumoAnnuale || '',
+      tipologiaContratto: fornitura.tipologiaContratto || 'Residenziale',
+      stato: fornitura.stato || 'Attivo',
+      prestazione: fornitura.prestazione || '',
+      fornitore: fornitura.fornitore || '',
+      offerta: fornitura.offerta || '',
+      prezzo: fornitura.prezzo || '',
+      ccv: fornitura.ccv || '',
+      scadenza: fornitura.scadenza || '',
+      compenso: fornitura.compenso || '',
+      commissione: fornitura.commissione || '',
+      operatore: fornitura.operatore || '',
+      nrPratica: fornitura.nrPratica || '',
+      linkPortale: fornitura.linkPortale || '',
+      checkPagamento: fornitura.checkPagamento || false,
+      checkStorno: fornitura.checkStorno || false,
+      esitoContratto: fornitura.esitoContratto || '',
+      tipologia: fornitura.tipologia || '',
+      note: fornitura.note || ''
+    })
     setShowAddFornitura(true)
   }
 
