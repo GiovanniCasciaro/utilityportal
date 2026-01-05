@@ -12,4 +12,4 @@ backups/
 scripts/
 *.md
 !README.md
-
+!VERCEL_DEPLOY.md
