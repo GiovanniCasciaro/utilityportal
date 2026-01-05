@@ -1,5 +1,17 @@
 # Deploy su Vercel
 
+## ⚠️ IMPORTANTE: Configurazione Node.js
+
+**PRIMA DI FARE IL DEPLOY, configura Node.js 20 nelle impostazioni di Vercel:**
+
+1. Vai su https://vercel.com
+2. Seleziona il progetto (o crealo)
+3. Vai su **Settings** → **General**
+4. In **Node.js Version** seleziona **20.x** (NON 24.x)
+5. Salva le impostazioni
+
+**Questo è CRUCIALE perché `better-sqlite3` non compila con Node.js 24.**
+
 ## ⚠️ IMPORTANTE: Limitazioni SQLite su Vercel
 
 Vercel è una piattaforma serverless, quindi:
@@ -17,7 +29,16 @@ Vercel è una piattaforma serverless, quindi:
 3. Importa il repository GitHub `GiovanniCasciaro/utilityportal`
 4. Vercel rileverà automaticamente Next.js
 
-### 2. Variabili d'ambiente
+### 2. ⚠️ Configura Node.js Version (IMPORTANTE!)
+
+**Nelle impostazioni del progetto su Vercel:**
+1. Vai su "Settings" → "General"
+2. In "Node.js Version" seleziona **20.x** (NON 24.x)
+3. Salva le impostazioni
+
+**Il file `.nvmrc` è già presente nel repository e specifica Node 20.**
+
+### 3. Variabili d'ambiente
 
 Configura queste variabili d'ambiente su Vercel:
 
@@ -36,7 +57,7 @@ Se usi email:
 - `SMTP_USER`
 - `SMTP_PASS`
 
-### 3. Build Settings
+### 4. Build Settings
 
 Vercel dovrebbe rilevare automaticamente:
 - **Framework Preset**: Next.js
@@ -44,7 +65,7 @@ Vercel dovrebbe rilevare automaticamente:
 - **Output Directory**: `.next`
 - **Install Command**: `npm install`
 
-### 4. Deploy
+### 5. Deploy
 
 Dopo il primo deploy, ogni push su `main` farà un nuovo deploy automatico.
 
@@ -64,3 +85,18 @@ Per un'applicazione in produzione, considera di migrare a:
 - **Supabase** (PostgreSQL)
 - **Railway** (PostgreSQL/MySQL)
 
+## 🐛 Risoluzione Problemi
+
+### Errore: "better-sqlite3 build failed"
+
+Se vedi errori di compilazione di `better-sqlite3`:
+1. Verifica che Node.js Version sia impostato su **20.x** (non 24.x)
+2. Vai su Settings → General → Node.js Version
+3. Seleziona **20.x** e salva
+4. Fai un nuovo deploy
+
+### Errore: "npm install failed"
+
+1. Verifica che tutte le dipendenze siano corrette
+2. Controlla i log di build su Vercel per dettagli specifici
+3. Assicurati che Node.js Version sia 20.x
